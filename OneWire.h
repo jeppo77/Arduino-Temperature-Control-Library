@@ -139,19 +139,11 @@
 #define IO_REG_TYPE uint32_t
 #define IO_REG_BASE_ATTR
 #define IO_REG_MASK_ATTR
-#ifdef ONEWIRE_GPIO16
 #define DIRECT_READ(base, mask)         ((GP16I & 0x01) ? 1 : 0)    
 #define DIRECT_MODE_INPUT(base, mask)   (GP16E &= ~1)            
 #define DIRECT_MODE_OUTPUT(base, mask)  (GP16E |= 1)             
 #define DIRECT_WRITE_LOW(base, mask)    (GP16O &= ~1)             
 #define DIRECT_WRITE_HIGH(base, mask)   (GP16O |= 1)             
-#else
-#define DIRECT_READ(base, mask)         ((GPI & (mask)) ? 1 : 0)    //GPIO_IN_ADDRESS
-#define DIRECT_MODE_INPUT(base, mask)   (GPE &= ~(mask))            //GPIO_ENABLE_W1TC_ADDRESS
-#define DIRECT_MODE_OUTPUT(base, mask)  (GPE |= (mask))             //GPIO_ENABLE_W1TS_ADDRESS
-#define DIRECT_WRITE_LOW(base, mask)    (GPOC = (mask))             //GPIO_OUT_W1TC_ADDRESS
-#define DIRECT_WRITE_HIGH(base, mask)   (GPOS = (mask))             //GPIO_OUT_W1TS_ADDRESS
-#endif
 
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <driver/rtc_io.h>
